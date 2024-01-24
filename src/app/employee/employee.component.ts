@@ -31,10 +31,11 @@ export class EmployeeComponent implements OnInit{
     this.service.getAll().subscribe({
       next: (response) =>{
         let data = response as any[];
-        this.lastPage = Math.ceil(data.length / size)
+        let filteredData = this.filterData(data, keyword);
+        this.lastPage = Math.ceil(filteredData.length / size)
+        this.employees = this.processData(data, size, page, keyword, sortBy);
         this.recentPage = page;
         this.pagination = this.setPagination(this.lastPage, page);
-        this.employees = this.processData(data, size, page, keyword, sortBy);
       },
       error: (error) => {
         console.log(error);
@@ -44,10 +45,7 @@ export class EmployeeComponent implements OnInit{
   
   processData(data: any[], size: number, page: number, keyword: string, sortBy? : string) {
     return this.sortData(
-      this.filterData(
-        this.sliceData(data, size, page),
-        keyword
-      ),
+      this.sliceData(data, size, page),
       sortBy
     );
   }
