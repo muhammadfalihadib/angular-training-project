@@ -1,0 +1,52 @@
+<div class="container">
+    <div>
+        <b>Username:</b> {{employee.username}}
+    </div>
+    <div>   
+        <b>Full Name:</b> 
+        {{employee.firstName}} {{employee.lastName}}
+    </div>
+    <div>
+        <b>
+            Email: 
+        </b>
+        {{employee.email}}
+    </div>
+    <div>
+        <b>
+            Birth Date: 
+        </b>
+        {{employee.birthDate | date: "dd MMMM yyyy"}}
+    </div>
+    <div>
+        <b>
+            Basic Salary: 
+        </b>
+        {{employee.basicSalary | currency: 'Rp'}}
+    </div>
+    <div *ngIf="employee.status == '0'">
+        <b>
+            Status: 
+        </b>
+        Inactive
+    </div>
+    <div *ngIf="employee.status == '1'">
+        <b>
+            Status: 
+        </b>
+        Active
+    </div>
+    <div>
+        <b>
+            Group: 
+        </b>
+        {{employee.group}}
+    </div>
+    <div>
+        <b>
+            Description: 
+        </b>
+        {{employee.description}}
+    </div>
+    <button class="m-1 btn btn-primary" routerLink="/employee">Back</button>
+</div>

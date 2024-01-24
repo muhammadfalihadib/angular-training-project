@@ -1,0 +1,151 @@
+<div class="container">
+    <form ngForm #myForm="ngForm" (submit)="onSubmit(myForm.value)">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+                class="form-control"
+                type="text"
+                id="username"
+                name="username"
+                minlength="5"
+                ngModel
+                required
+                #username="ngModel"
+            >
+            <div class="alert alert-danger mt-1"
+                *ngIf="username.touched && !username.valid"
+            >
+                <div *ngIf="username.errors?.['required']">
+                    Username is required.
+                </div>
+                <div *ngIf="username.errors?.['minlength']">
+                    Username should be minimum {{username.errors?.['minlength'].requiredLength}} characters.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input 
+                class="form-control"
+                type="text"
+                id="firstName"
+                name="firstName"
+                minlength="1"
+                ngModel
+                required
+                #firstName="ngModel"
+            >
+            <div class="alert alert-danger mt-1"
+                *ngIf="firstName.touched && !firstName.valid"
+            >
+                <div *ngIf="firstName.errors?.['required']">
+                    First name is required.
+                </div>
+                <div *ngIf="firstName.errors?.['minlength']">
+                    First name should be minimum {{firstName.errors?.['minlength'].requiredLength}} characters.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input 
+                class="form-control"
+                type="text"
+                id="lastName"
+                name="lastName"
+                ngModel
+                #lastName="ngModel"
+            >
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input 
+                class="form-control"
+                type="text"
+                id="email"
+                name="email"
+                required
+                ngModel
+                #email="ngModel"
+            >
+            <div class="alert alert-danger mt-1"
+                *ngIf="email.touched && !email.valid"
+                >
+                <div *ngIf="email.errors?.['required']">
+                    Email is required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthDate">Birth Date</label>
+            <input 
+                class="form-control"
+                type="date"
+                id="birthDate"
+                name="birthDate"
+                ngModel
+                [max]="getToday()"
+            >
+        </div>
+        <div class="form-group">
+            <label for="basicSalary">Basic Salary</label>
+            <input 
+                class="form-control"
+                type="number"
+                id="basicSalary"
+                name="basicSalary"
+                min="0"
+                ngModel
+                #basicSalary="ngModel"
+            >
+            <div class="alert alert-danger mt-1"
+                *ngIf="basicSalary.touched && !basicSalary.valid"
+            >
+                <div *ngIf="basicSalary.errors?.['min']">
+                    Basic Salary cannot be negative.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <div class="form-check"
+            *ngFor="let status of statusOption">
+            <input
+            type="radio"
+            class="form-check-input"
+            name="status"
+            ngModel
+            [id] = "status.name"
+            [value] = "status.id"
+            required
+            >
+            <label class="form-check-label" [for]="status.name">{{status.name}}</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea 
+                class="form-control"
+                cols="30" 
+                rows="10" 
+                id="description"
+                name="description"
+                ngModel>
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="">Group</label>
+            <select class="form-select" name='group' ngModel required="">
+                <option value="">Select your group...</option>
+                <option [value]="group" *ngFor="let group of groupOption">{{group}}</option>
+            </select>
+        </div>
+
+        <button 
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!myForm.valid"
+        >Submit</button>
+    </form>
+</div>

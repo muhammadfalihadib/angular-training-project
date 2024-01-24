@@ -1,0 +1,17 @@
+thead th {
+    background-color: #0d6efd;
+    color: white;
+}
+
+thead th:hover {
+    cursor: pointer;
+}
+
+thead th:hover:first-child {
+    cursor: auto;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}

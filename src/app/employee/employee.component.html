@@ -1,0 +1,99 @@
+<div class="m-3">
+    <input class="form-control" placeholder="Search"
+        id="keyword"
+        name="keyword"
+        [(ngModel)]="keyword"
+        (change)="getData(size, recentPage, keyword)"
+    >
+    <a class="btn btn-primary mt-2" routerLink="/employee/add"
+        routerLinkActive="active"
+    >Add New Employee</a>
+</div>
+
+<div class="m-3">
+    <table class="table border">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th (click)="sortBy('name')">Name</th>
+                <th (click)="sortBy('email')">Email</th>
+                <th (click)="sortBy('group')">Group</th>
+                <th (click)="sortBy('birthDate')">Birth Date</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let employee of employees">
+            <tr>
+                <td>
+                    <div>
+                        <button class="m-1 btn btn-primary"
+                        [routerLink]="['/employee', employee?.id]">Detail</button>
+                        <button class="m-1 btn btn-warning">Edit</button>
+                        <button class="m-1 btn btn-danger">Delete</button>
+                    </div>
+                </td>
+                <td>{{employee.firstName}} {{employee.lastName}} </td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.group}}</td>
+                <td>{{employee.birthDate | date: 'dd MMM yyyy'}}</td>
+            </tr>
+            </tbody>
+    </table>
+    <tfoot>
+        <tr class="flex">
+            <td colspan="4">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <button class="page-link"
+                            (click)="getData(size, 1, keyword)"
+                        >{{'\<\<'}}
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link"
+                            (click)="getData(size, recentPage - 1, keyword)"
+                            [disabled]="recentPage == 1"
+                        >{{'\<'}}
+                        </button>
+                    </li>
+                    <li class="page-item" *ngFor="let page of pagination;">
+                        <button class="page-link"
+                            (click)="getData(size, page, keyword)"
+                        >{{page}}
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link"
+                            (click)="getData(size, (recentPage + 1), keyword)"
+                            [disabled]="recentPage == lastPage"
+                        >{{'\>'}}
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link"
+                            (click)="getData(size, lastPage, keyword)"
+                        >{{'\>\>'}}
+                        </button>
+                    </li>
+                  </ul>
+            </td> 
+            <td>
+                <div class="mb-3 d-flex">
+                    <div class="mt-1">
+                        Size:
+                    </div>
+                    <select class="form-control"
+                        id="size"
+                        name="size"
+                        (change)="getData(size, recentPage, keyword)"
+                        [(ngModel)]="size"
+                        >
+                        <option 
+                            *ngFor="let option of sizeOption"
+                            [value]="option"
+                        >{{option}}</option>
+                    </select>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</div>
