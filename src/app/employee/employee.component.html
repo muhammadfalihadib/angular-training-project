@@ -58,6 +58,7 @@
                     <li class="page-item" *ngFor="let page of pagination;">
                         <button class="page-link"
                             (click)="getData(size, page, keyword)"
+                            [class]="page == recentPage ? 'active':''"
                         >{{page}}
                         </button>
                     </li>
